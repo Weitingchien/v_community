@@ -2,7 +2,6 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const cookieParser = require('cookie-parser')
-const csrf = require('csurf')
 const normal = require('./routes/normal')
 // const member = require('./routes/member')
 
@@ -11,14 +10,13 @@ console.log('mode: ' + process.env.mode)
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(csrf({ cookie: true })) // 讓所有的route都會檢查csrf token
 
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:3000')
-  /*   res.setHeader(
+  res.setHeader(
     'Access-Control-Allow-Methods',
     'OPTIONS, GET, POST, PUT, PATCH, DELETE'
-  ) */
+  )
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization')
   next()
 })

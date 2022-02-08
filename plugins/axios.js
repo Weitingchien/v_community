@@ -1,5 +1,5 @@
 import apiFactory from '../api/apiFactory'
-export default function ({ $axios }, inject) {
+export default function ({ $axios, app, store }, inject) {
   const api = apiFactory($axios)
   inject('api', api)
 

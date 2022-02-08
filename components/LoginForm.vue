@@ -1,26 +1,28 @@
 <template>
-  <v-form ref="form" v-model="valid">
-    <v-text-field
-      v-model="loginData.email"
-      name="email"
-      label="email"
-      :rules="emailRules"
-      required
-      autocomplete="username"
-    ></v-text-field>
-    <v-text-field
-      v-model="loginData.password"
-      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-      :type="show1 ? 'text' : 'password'"
-      label="password"
-      :rules="passwordRules"
-      required
-      autocomplete="current-password"
-      @click:append="show1 = !show1"
-    ></v-text-field>
-    <v-btn :disabled="!valid" @click="submit">送出</v-btn>
-    <v-btn @click="clear">清除</v-btn>
-  </v-form>
+  <div>
+    <v-form ref="form" v-model="valid">
+      <v-text-field
+        v-model="loginData.email"
+        name="email"
+        label="email"
+        :rules="emailRules"
+        required
+        autocomplete="username"
+      ></v-text-field>
+      <v-text-field
+        v-model="loginData.password"
+        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+        :type="show1 ? 'text' : 'password'"
+        label="password"
+        :rules="passwordRules"
+        required
+        autocomplete="current-password"
+        @click:append="show1 = !show1"
+      ></v-text-field>
+      <v-btn :disabled="!valid" @click="submit">送出</v-btn>
+      <v-btn @click="clear">清除</v-btn>
+    </v-form>
+  </div>
 </template>
 
 <script>
@@ -44,6 +46,10 @@ export default {
   methods: {
     async submit() {
       try {
+        /*         const successfulLogin = await this.$axios(
+          'http://127.0.0.1:3000',
+          this.loginData
+        ) */
         const successfulLogin = await this.$auth.loginWith('local', {
           data: this.loginData,
         }) // login(this.loginData)

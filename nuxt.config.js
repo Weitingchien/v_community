@@ -66,7 +66,7 @@ export default {
           },
           logout: false,
           user: {
-            url: 'api/user',
+            url: '/api/user',
             method: 'get',
             propertyName: 'user',
             autoFetch: false,

@@ -1,9 +1,16 @@
 <template>
   <v-app dark>
     <NavbarItem />
-    <v-main class="d-flex align-center">
-      <v-container>
-        <Nuxt />
+    <v-main>
+      <v-container fluid>
+        <v-row justify="space-around" no-gutters>
+          <v-col cols="4">
+            <LeftSideBar />
+          </v-col>
+          <v-col cols="8">
+            <Nuxt />
+          </v-col>
+        </v-row>
       </v-container>
     </v-main>
     <v-footer :absolute="!fixed" app>

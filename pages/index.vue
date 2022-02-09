@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-app>
-      <v-card class="rounded-lg" max-width="500">
+      <v-card class="rounded-lg" max-width="700">
         <v-list class="grey darken-3" subheader>
           <v-subheader>Recent chat</v-subheader>
 

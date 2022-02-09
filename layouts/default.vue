@@ -4,12 +4,13 @@
     <v-main>
       <v-container fluid>
         <v-row justify="space-around" no-gutters>
-          <v-col cols="4">
+          <v-col>
             <LeftSideBar />
           </v-col>
-          <v-col cols="8">
+          <v-col>
             <Nuxt />
           </v-col>
+          <v-col></v-col>
         </v-row>
       </v-container>
     </v-main>

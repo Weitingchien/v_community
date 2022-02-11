@@ -3,14 +3,15 @@
     <NavbarItem />
     <v-main>
       <v-container fluid>
-        <v-row justify="space-around" no-gutters>
-          <v-col>
+        <v-row no-gutters>
+          <v-col cols="1">
             <LeftSideBar />
           </v-col>
+          <v-spacer></v-spacer>
           <v-col>
             <Nuxt />
           </v-col>
-          <v-col></v-col>
+          <v-spacer></v-spacer>
         </v-row>
       </v-container>
     </v-main>

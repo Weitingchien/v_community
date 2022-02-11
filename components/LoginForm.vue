@@ -1,28 +1,28 @@
 <template>
-  <div>
-    <v-form ref="form" v-model="valid">
-      <v-text-field
-        v-model="loginData.email"
-        name="email"
-        label="email"
-        :rules="emailRules"
-        required
-        autocomplete="username"
-      ></v-text-field>
-      <v-text-field
-        v-model="loginData.password"
-        :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-        :type="show1 ? 'text' : 'password'"
-        label="password"
-        :rules="passwordRules"
-        required
-        autocomplete="current-password"
-        @click:append="show1 = !show1"
-      ></v-text-field>
+  <v-form ref="form" v-model="valid">
+    <v-text-field
+      v-model="loginData.email"
+      name="email"
+      label="email"
+      :rules="emailRules"
+      required
+      autocomplete="username"
+    ></v-text-field>
+    <v-text-field
+      v-model="loginData.password"
+      :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+      :type="show1 ? 'text' : 'password'"
+      label="password"
+      :rules="passwordRules"
+      required
+      autocomplete="current-password"
+      @click:append="show1 = !show1"
+    ></v-text-field>
+    <div>
       <v-btn :disabled="!valid" @click="submit">送出</v-btn>
       <v-btn @click="clear">清除</v-btn>
-    </v-form>
-  </div>
+    </div>
+  </v-form>
 </template>
 
 <script>
@@ -59,7 +59,7 @@ export default {
           })
         } */
         console.log(successfulLogin)
-        this.$router.push('/member-community')
+        this.$router.push('/')
       } catch (err) {
         console.error(err.response)
         this.errMessage = err.response.data.message

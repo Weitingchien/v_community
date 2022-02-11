@@ -1,6 +1,7 @@
 const encryption = require('../model/encryption')
 const { login, getUserInfo } = require('../model/login')
 const signUp = require('../model/signup')
+const update = require('../model/update')
 
 class Normal {
   toLogin(req, res, next) {
@@ -30,6 +31,16 @@ class Normal {
     signUp(memberData)
       .then((result) => {
         res.status(201).json({ message: 'User was registered successfully' })
+      })
+      .catch((err) => {
+        res.status(500).json({ message: err.errorMessage })
+      })
+  }
+
+  updateUser(req, res, next) {
+    update(req, res, next)
+      .then((result) => {
+        return res.status(200).send({ result })
       })
       .catch((err) => {
         res.status(500).json({ message: err.errorMessage })

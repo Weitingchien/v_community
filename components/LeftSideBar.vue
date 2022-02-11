@@ -2,17 +2,17 @@
   <div>
     <v-sheet class="rounded-lg grey darken-3">
       <v-list-item
-        v-for="articleItem in article"
-        :key="articleItem.uid"
+        v-for="topicItem in topic"
+        :key="topicItem.uid"
         link
         max-width="300"
       >
         <v-list-item-avatar>
           <!-- <v-icon class="grey lighten-1" dark> mdi-folder</v-icon> -->
-          <v-icon class="grey darken-1" dark> {{ articleItem.icon }}</v-icon>
+          <v-icon class="grey darken-1" dark> {{ topicItem.icon }}</v-icon>
         </v-list-item-avatar>
         <v-list-item-content>
-          <v-list-item-title>{{ articleItem.title }}</v-list-item-title>
+          <v-list-item-title>{{ topicItem.title }}</v-list-item-title>
         </v-list-item-content>
       </v-list-item>
     </v-sheet>
@@ -23,7 +23,7 @@
 export default {
   data() {
     return {
-      article: [
+      topic: [
         {
           uid: 1,
           title: '電影',

@@ -8,4 +8,7 @@ export default (axios) => ({
   member() {
     return axios.get('/api/member')
   },
+  updateUser(data) {
+    return axios.post('/api/updateuser', data)
+  },
 })

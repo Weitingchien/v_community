@@ -5,17 +5,19 @@
         <v-avatar size="96" class="mr-4">
           <img src="#" alt="Avatar" />
         </v-avatar>
-        <v-btn>Change Avatar</v-btn>
+        <v-file-input
+          :rules="rules"
+          accept="image/png, image/jpeg, image/bmp"
+          placeholder="Pick an avatar"
+          prepend-icon="mdi-camera"
+          label="Avatar"
+        ></v-file-input>
       </v-flex>
-      <v-text-field
-        v-model="getUserInfo.username"
-        label="username"
-      ></v-text-field>
-      <v-text-field v-model="getUserInfo.email" label="email"></v-text-field>
-      <v-text-field v-model="getUserInfo.role" label="role"></v-text-field>
+      <v-text-field v-model="username" label="username"></v-text-field>
+      <v-text-field v-model="email" label="email"></v-text-field>
     </v-card-text>
     <v-card-actions>
-      <v-btn color="primary"> Save Changes </v-btn>
+      <v-btn color="primary" @click="updateUserInfo"> Save Changes </v-btn>
     </v-card-actions>
   </v-card>
 </template>
@@ -26,16 +28,46 @@ export default {
   data() {
     return {
       userInfoData: {
-        username: '',
+        username: '1',
         email: '',
         password: '',
         role: '',
       },
+      rules: [
+        (value) =>
+          !value ||
+          value.size < 2000000 ||
+          'Avatar size should be less than 2 MB!',
+      ],
     }
   },
   computed: {
-    getUserInfo() {
-      return this.$store.getters.getUserInfo
+    username: {
+      get() {
+        return this.$store.state.auth.user.username
+      },
+      set(value) {
+        const columnType = 'username'
+        this.$store.dispatch('handUpdateUserData', [value, columnType])
+      },
+    },
+    email: {
+      get() {
+        return this.$store.state.auth.user.email
+      },
+      set(value) {
+        const columnType = 'email'
+        this.$store.dispatch('handUpdateUserData', [value, columnType])
+      },
+    },
+  },
+  methods: {
+    async updateUserInfo() {
+      const response = await this.$api.updateUser({
+        username: this.username,
+        email: this.email,
+      })
+      console.log(response)
     },
   },
 }

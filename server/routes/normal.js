@@ -7,5 +7,6 @@ const normalInstance = new NormalMethod()
 router.post('/login', normalInstance.toLogin)
 router.post('/signup', normalInstance.toSignUp)
 router.get('/user', normalInstance.toLogin)
+router.post('/updateuser', normalInstance.updateUser)
 
 module.exports = router

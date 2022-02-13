@@ -1,6 +1,11 @@
 const encryption = require('../model/encryption')
 const { login, getUserInfo } = require('../model/login')
 const signUp = require('../model/signup')
+<<<<<<< Updated upstream
+=======
+const update = require('../model/update')
+const uploadAvatar = require('../model/uploadavatar')
+>>>>>>> Stashed changes
 
 class Normal {
   toLogin(req, res, next) {
@@ -35,6 +40,30 @@ class Normal {
         res.status(500).json({ message: err.errorMessage })
       })
   }
+<<<<<<< Updated upstream
+=======
+
+  uploadImage(req, res, next) {
+    uploadAvatar(req, res, next)
+      .then((result) => {
+        console.log(result)
+        return res.status(200).send({ result })
+      })
+      .catch((err) => {
+        res.status(500).json({ message: err.errorMessage })
+      })
+  }
+
+  updateUser(req, res, next) {
+    update(req, res, next)
+      .then((result) => {
+        return res.status(200).send({ result })
+      })
+      .catch((err) => {
+        res.status(500).json({ message: err.errorMessage })
+      })
+  }
+>>>>>>> Stashed changes
 }
 
 module.exports = Normal

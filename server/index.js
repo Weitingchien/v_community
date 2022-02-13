@@ -2,12 +2,17 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const cookieParser = require('cookie-parser')
+<<<<<<< Updated upstream
 const csrf = require('csurf')
+=======
+// const fileUpload = require('express-fileupload')
+>>>>>>> Stashed changes
 const normal = require('./routes/normal')
 // const member = require('./routes/member')
 
 console.log('mode: ' + process.env.mode)
 
+// app.use(fileUpload())
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))

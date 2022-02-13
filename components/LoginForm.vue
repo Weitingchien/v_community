@@ -17,6 +17,7 @@
       required
       autocomplete="current-password"
       @click:append="show1 = !show1"
+      @keyup.enter="submit"
     ></v-text-field>
     <v-btn :disabled="!valid" @click="submit">送出</v-btn>
     <v-btn @click="clear">清除</v-btn>

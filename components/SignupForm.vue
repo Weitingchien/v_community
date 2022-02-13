@@ -2,6 +2,7 @@
   <div>
     <AlertError v-if="errMessage.length" :err="errMessage" />
     <v-form ref="form" v-model="valid">
+      <!--   <input name="avatar" type="file" @change="currentFile($event)" />-->
       <v-text-field
         v-model="signUpData.username"
         name="username"
@@ -50,6 +51,7 @@ export default {
     return {
       valid: true,
       show1: false,
+      file: null,
       signUpData: {
         username: '',
         email: '',
@@ -61,8 +63,8 @@ export default {
         (v) => !!v || 'username必填',
         (v) =>
           typeof v === 'string'
-            ? v.trim().split(' ')[0].length >= 5
-            : false || '最少5個字',
+            ? v.trim().split(' ')[0].length >= 4
+            : false || '最少4個字',
         (v) =>
           typeof v === 'string'
             ? v.trim().split(' ')[0].length <= 25
@@ -97,7 +99,6 @@ export default {
       }
     },
     clear() {
-      this.signUpData.username = ''
       this.signUpData.email = ''
       this.signUpData.password = ''
       this.confirmPassword = ''
@@ -107,5 +108,3 @@ export default {
   },
 }
 </script>
-
-<style></style>

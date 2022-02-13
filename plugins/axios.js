@@ -5,7 +5,7 @@ export default function ({ $axios }, inject) {
 
   $axios.onRequest((config) => {
     console.log('Making request to ' + config.url)
-    console.log('config: ', config)
+    // console.log('config: ', config)
     return config
   })
 }

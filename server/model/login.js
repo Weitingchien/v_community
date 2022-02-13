@@ -46,7 +46,7 @@ const login = (req, res, next) => {
 const getUserInfo = (req, res, next) => {
   res.status(200).json({
     user: {
-      id: loadedUser[0].ID,
+      id: loadedUser[0].id,
       username: loadedUser[0].username,
       email: loadedUser[0].email,
       role: loadedUser[0].role,

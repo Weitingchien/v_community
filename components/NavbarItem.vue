@@ -8,15 +8,42 @@
       app
     >
       <v-list>
+        <v-list-item to="/">
+          <v-list-item-content>
+            <v-list-item-title>首頁 </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="isAuthenticated === false" to="/login-community">
+          <v-list-item-content>
+            <v-list-item-title>登入</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item
+<<<<<<< Updated upstream
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
           router
           exact
+=======
+          v-if="isAuthenticated === true"
+          :to="{
+            path: `/auth/member/${getUserInfo.username}`,
+          }"
+>>>>>>> Stashed changes
         >
           <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
+            <v-list-item-title>個人資料</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item v-if="isAuthenticated === true" to="/" @click="logout">
+          <v-list-item-content>
+            <v-list-item-title>登出</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item to="/signup-community">
+          <v-list-item-content>
+            <v-list-item-title>註冊</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list>
@@ -50,6 +77,7 @@ export default {
       clipped: false,
       drawer: false,
       miniVariant: false,
+<<<<<<< Updated upstream
       items: [
         {
           icon: 'mdi-apps',
@@ -67,6 +95,8 @@ export default {
           to: '/register-community',
         },
       ],
+=======
+>>>>>>> Stashed changes
       title: 'V',
     }
   },

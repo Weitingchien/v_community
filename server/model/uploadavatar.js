@@ -1,10 +1,7 @@
 const query = require('../config/db')
 const uploadAvatar = (req, res, next) => {
-  console.log('觸發uploadAvatar函式')
-  /*   console.log(req.body.userid)
-  console.log(req.file) */
   if (!req.file) {
-    return res.status(400).send('File was not found! ')
+    return res.status(400).send('沒有檔案')
   }
   return new Promise((resolve, reject) => {
     query(

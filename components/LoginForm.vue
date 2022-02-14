@@ -17,10 +17,11 @@
       required
       autocomplete="current-password"
       @click:append="show1 = !show1"
-      @keyup.enter="submit"
     ></v-text-field>
-    <v-btn :disabled="!valid" @click="submit">送出</v-btn>
-    <v-btn @click="clear">清除</v-btn>
+    <div>
+      <v-btn :disabled="!valid" @click="submit">送出</v-btn>
+      <v-btn @click="clear">清除</v-btn>
+    </div>
   </v-form>
 </template>
 
@@ -47,14 +48,9 @@ export default {
       try {
         const successfulLogin = await this.$auth.loginWith('local', {
           data: this.loginData,
-        }) // login(this.loginData)
-        /*         if (successfulLogin) {
-          await this.$auth.setUser({
-            email: this.loginData.email,
-          })
-        } */
+        })
         console.log(successfulLogin)
-        this.$router.push('/member-community')
+        this.$router.push('/')
       } catch (err) {
         console.error(err.response)
         this.errMessage = err.response.data.message

@@ -18,14 +18,12 @@ const upload = multer({
 router.post('/login', normalInstance.toLogin)
 router.post('/signup', normalInstance.toSignUp)
 router.get('/user', normalInstance.toLogin)
-<<<<<<< Updated upstream
-=======
 router.post('/updateuser', normalInstance.updateUser)
 router.post(
   '/uploadavatar',
   upload.single('avatar'),
   normalInstance.uploadImage
 )
->>>>>>> Stashed changes
+router.post('/getavatar', normalInstance.getImage)
 
 module.exports = router

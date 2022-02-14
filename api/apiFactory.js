@@ -8,8 +8,6 @@ export default (axios) => ({
   member() {
     return axios.get('/api/member')
   },
-<<<<<<< Updated upstream
-=======
   updateUser(data) {
     return axios.post('/api/updateuser', data)
   },
@@ -18,5 +16,7 @@ export default (axios) => ({
       headers: { 'Content-Type': 'multipart/form-data' },
     })
   },
->>>>>>> Stashed changes
+  getAvatar(data) {
+    return axios.post('/api/getavatar', data)
+  },
 })

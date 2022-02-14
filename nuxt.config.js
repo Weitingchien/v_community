@@ -66,13 +66,16 @@ export default {
           },
           logout: false,
           user: {
-            url: 'api/user',
+            url: '/api/user',
             method: 'get',
             propertyName: 'user',
             autoFetch: false,
           }, // 預設會在成功登入後呼叫、頁面重新載入時呼叫
         },
       },
+    },
+    redirect: {
+      logout: '/',
     },
   },
 

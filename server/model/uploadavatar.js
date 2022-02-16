@@ -1,7 +1,9 @@
 const query = require('../config/db')
 const uploadAvatar = (req, res, next) => {
   if (!req.file) {
-    return res.status(400).send('沒有檔案')
+    const errData = {}
+    errData.errorMessage = '沒有檔案'
+    return res.status(400).send({ message: errData.errorMessage })
   }
   return new Promise((resolve, reject) => {
     query(

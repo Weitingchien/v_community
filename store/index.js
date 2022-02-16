@@ -2,11 +2,13 @@ export const state = () => ({
   avatar: null,
 })
 
+// 只有在actions可以使用plugin
 export const actions = {
   handUpdateUserData({ commit }, [value, columnType]) {
     commit('updateUserData', [value, columnType])
   },
   handUploadAvatar({ commit }, value) {
+    this.$localStorage.set('avatar', value)
     commit('uploadAvatar', value)
   },
 }

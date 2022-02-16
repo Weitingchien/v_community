@@ -27,9 +27,9 @@
         <v-col cols="2">
           <v-btn text block to="/signup-community">註冊</v-btn>
         </v-col>
-        <v-col v-if="avatar" cols="2">
-          <v-avatar size="64">
-            <img :src="`data:image/png;base64,${getAvatar}`" alt="Avatar" />
+        <v-col v-if="isAuthenticated === true" cols="2">
+          <v-avatar size="32">
+            <img :src="`data:image/png;base64,${avatar}`" alt="Avatar" />
           </v-avatar>
         </v-col>
       </v-row>
@@ -100,8 +100,39 @@ export default {
       return false
     },
     getAvatar() {
-      return this.$store.getters.getAvatar
+      return this.$localStorage.get('avatar')
     },
+  },
+  watch: {
+    async '$store.getters.isAuthenticated'(newVal) {
+      if (newVal) {
+        const response = await this.$api.getAvatar({
+          userid: this.$store.getters.getUserInfo.id,
+        })
+        this.avatar = Buffer.from(response.data.result[0].avatar).toString(
+          'base64'
+        )
+        this.$store.dispatch('handUploadAvatar', this.avatar)
+        console.log(response)
+      }
+    },
+    async '$store.getters.getAvatar'(newVal, oldVal) {
+      console.log('新值: ' + newVal, '舊值: ' + oldVal)
+      if (newVal !== oldVal) {
+        const response = await this.$api.getAvatar({
+          userid: this.$store.getters.getUserInfo.id,
+        })
+        this.avatar = Buffer.from(response.data.result[0].avatar).toString(
+          'base64'
+        )
+        this.$store.dispatch('handUploadAvatar', this.avatar)
+      }
+    },
+  },
+  mounted() {
+    if (this.$store.getters.isAuthenticated) {
+      this.avatar = this.getAvatar
+    }
   },
 
   methods: {

@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const multer = require('multer')
+const auth = require('../middleware/auth')
 const NormalMethod = require('../controller/indexcontroller')
 const normalInstance = new NormalMethod()
 const upload = multer({
@@ -17,13 +18,15 @@ const upload = multer({
 // login
 router.post('/login', normalInstance.toLogin)
 router.post('/signup', normalInstance.toSignUp)
-router.get('/user', normalInstance.toLogin)
-router.post('/updateuser', normalInstance.updateUser)
+router.get('/user', auth.verify, normalInstance.toLogin)
+router.post('/userdata', auth.verify, normalInstance.getUserData)
+router.post('/updateuser', auth.verify, normalInstance.updateUser)
 router.post(
   '/uploadavatar',
+  auth.verify,
   upload.single('avatar'),
   normalInstance.uploadImage
 )
-router.post('/getavatar', normalInstance.getImage)
+router.post('/getavatar', auth.verify, normalInstance.getImage)
 
 module.exports = router

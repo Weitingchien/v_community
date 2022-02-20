@@ -1,5 +1,6 @@
 export const state = () => ({
   avatar: null,
+  avatarLoading: false,
 })
 
 // 只有在actions可以使用plugin
@@ -11,11 +12,13 @@ export const actions = {
     this.$localStorage.set('avatar', value)
     commit('uploadAvatar', value)
   },
+  handAvatarLoading({ commit }, value) {
+    commit('avatarLoading', value)
+  },
 }
 
 export const mutations = {
   updateUserData(state, [value, columnType]) {
-    console.log(state, value, columnType)
     if (columnType === 'username') {
       state.auth.user.username = value
     } else if (columnType === 'email') {
@@ -24,6 +27,9 @@ export const mutations = {
   },
   uploadAvatar(state, value) {
     state.avatar = value
+  },
+  avatarLoading(state, value) {
+    state.avatarLoading = value
   },
 }
 
@@ -36,5 +42,8 @@ export const getters = {
   },
   getAvatar(state) {
     return state.avatar
+  },
+  getAvatarLoading(state) {
+    return state.avatarLoading
   },
 }

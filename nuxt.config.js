@@ -21,7 +21,10 @@ export default {
   css: ['@/assets/css/main'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~/plugins/axios.js', '~/plugins/localStorage.js'],
+  plugins: [
+    { src: '~/plugins/axios.js', ssr: false },
+    { src: '~/plugins/localStorage.js', ssr: false },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -69,9 +72,9 @@ export default {
             url: '/api/user',
             method: 'get',
             propertyName: 'user',
-            autoFetch: false,
           }, // 預設會在成功登入後呼叫、頁面重新載入時呼叫
         },
+        autoFetchUser: false,
       },
     },
     redirect: {
@@ -91,6 +94,7 @@ export default {
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
     customVariables: ['@/assets/css/variables.scss'],
+    treeShake: true,
     theme: {
       dark: true,
       themes: {

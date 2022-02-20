@@ -2,8 +2,6 @@
   <div>
     <v-app-bar class="grey darken-3">
       <v-app-bar-nav-icon v-if="isVisible" @click.stop="drawer = !drawer" />
-      <!--       <v-toolbar-title v-text="title" /> -->
-      <!-- <v-spacer /> -->
       <v-row v-if="!isVisible" align="center" justify="space-around">
         <v-col cols="2">
           <v-btn text block to="/">首頁</v-btn>
@@ -28,9 +26,40 @@
           <v-btn text block to="/signup-community">註冊</v-btn>
         </v-col>
         <v-col v-if="isAuthenticated === true" cols="2">
-          <v-avatar size="32">
-            <img :src="`data:image/png;base64,${avatar}`" alt="Avatar" />
-          </v-avatar>
+          <v-menu bottom min-width="200px" rounded offset-y>
+            <template #activator="{ on }">
+              <v-btn icon x-large v-on="on">
+                <v-avatar size="32">
+                  <v-img :src="`data:image/png;base64,${avatar}`" alt="Avatar">
+                    <v-avatar v-if="!isLoading" size="32" color="grey darken-2">
+                      <v-skeleton-loader class="mx-auto" max-width="32" type="avatar"></v-skeleton-loader>
+                    </v-avatar>
+                  </v-img>
+                </v-avatar>
+          </v-sheet>
+              </v-btn>
+            </template>
+            <v-card>
+              <v-list-item-content class="justify-center">
+                <div class="mx-auto text-center">
+                  <v-avatar size="32">
+                    <img
+                      :src="`data:image/png;base64,${avatar}`"
+                      alt="Avatar"
+                    />
+                  </v-avatar>
+                  <h3>{{ getUserInfo.username }}</h3>
+                  <p class="text-caption mt-1">
+                    {{ getUserInfo.email }}
+                  </p>
+                  <v-divider class="my-3"></v-divider>
+                  <v-btn depressed rounded text> 發表文章 </v-btn>
+                  <v-divider class="my-3"></v-divider>
+                  <v-btn depressed rounded text> 個人文章記錄 </v-btn>
+                </div>
+              </v-list-item-content>
+            </v-card>
+          </v-menu>
         </v-col>
       </v-row>
     </v-app-bar>
@@ -99,6 +128,9 @@ export default {
       }
       return false
     },
+    isLoading(){
+      return this.$store.getters.getAvatarLoading
+    },
     getAvatar() {
       return this.$localStorage.get('avatar')
     },
@@ -117,11 +149,13 @@ export default {
       }
     },
     async '$store.getters.getAvatar'(newVal, oldVal) {
-      console.log('新值: ' + newVal, '舊值: ' + oldVal)
       if (newVal !== oldVal) {
         const response = await this.$api.getAvatar({
           userid: this.$store.getters.getUserInfo.id,
         })
+         if(response.status === 200){
+          this.$store.dispatch('handAvatarLoading', true)
+        } 
         this.avatar = Buffer.from(response.data.result[0].avatar).toString(
           'base64'
         )

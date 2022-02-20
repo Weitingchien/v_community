@@ -4,7 +4,7 @@ const query = require('../config/db')
 
 const signToken = (result) => {
   if (result.length === 0) return
-  return jwt.sign({ _id: result[0].ID }, process.env.KEY, {
+  return jwt.sign({ _id: result[0].id }, process.env.KEY, {
     expiresIn: Math.floor((Date.now() / 1000) * 60 * 10),
     algorithm: 'HS256',
   })

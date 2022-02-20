@@ -4,6 +4,7 @@ const signUp = require('../model/signup')
 const update = require('../model/update')
 const uploadAvatar = require('../model/uploadavatar')
 const getAvatar = require('../model/getavatar')
+const getUserProfileContent = require('../model/getuserprofilecontent')
 
 class Normal {
   toLogin(req, res, next) {
@@ -52,6 +53,16 @@ class Normal {
 
   getImage(req, res, next) {
     getAvatar(req, res, next)
+      .then((result) => {
+        return res.status(200).send({ result })
+      })
+      .catch((err) => {
+        res.status(500).json({ message: err.errorMessage })
+      })
+  }
+
+  getUserData(req, res, next) {
+    getUserProfileContent(req, res, next)
       .then((result) => {
         return res.status(200).send({ result })
       })

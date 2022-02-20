@@ -2,6 +2,9 @@ export default (axios) => ({
   login(data) {
     return axios.post('/api/login', data)
   },
+  getUserData(data) {
+    return axios.post('/api/userdata', data)
+  },
   signUp(data) {
     return axios.post('/api/signup', data)
   },
@@ -11,9 +14,10 @@ export default (axios) => ({
   updateUser(data) {
     return axios.post('/api/updateuser', data)
   },
-  uploadAvatar(data) {
+  uploadAvatar(data, progress) {
     return axios.post('/api/uploadavatar', data, {
       headers: { 'Content-Type': 'multipart/form-data' },
+      onUploadProgress: progress,
     })
   },
   getAvatar(data) {

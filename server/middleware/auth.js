@@ -16,14 +16,19 @@ const verify = (req, res, next) => {
         message: '未經授權',
       })
     }
-    const result = query(
-      'SELECT username, email FROM member WHERE ID = ?',
-      decoded._id
+    query(
+      'SELECT id FROM member WHERE id = ?',
+      [decoded._id],
+      (err, result) => {
+        if (err) {
+          throw err
+        }
+        if (result[0].id === decoded._id) {
+          req.userId = decoded._id
+          next()
+        }
+      }
     )
-    if (result[0].ID === decoded._id) {
-      req.userId = decoded._id
-      next()
-    }
   })
 }
 

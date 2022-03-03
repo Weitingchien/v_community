@@ -1,12 +1,12 @@
 <template>
-  <div>
-    <UserProfile />
+  <div class="textarea">
+    <UserTextArea />
   </div>
 </template>
 
 <script>
 export default {
-  middleware: 'isAuthenticated',
+  middleware: ['isauth', 'isthatyou'],
 }
 </script>
 

@@ -4,14 +4,12 @@
     <v-main>
       <v-container fluid>
         <v-row no-gutters>
-          <v-col cols="1">
-            <LeftSideBar />
+          <v-col xs="12" sm="12" lg="2">
+            <LeftSideBar class="ma-3" />
           </v-col>
-          <v-spacer></v-spacer>
-          <v-col>
-            <Nuxt />
+          <v-col xs="12" sm="12" lg="8">
+            <Nuxt class="ma-3" />
           </v-col>
-          <v-spacer></v-spacer>
         </v-row>
       </v-container>
     </v-main>

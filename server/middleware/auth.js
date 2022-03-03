@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken')
 const query = require('../config/db')
-// const role = require('../config/role')
 
 const verify = (req, res, next) => {
   const authHeader = req.get('Authorization')

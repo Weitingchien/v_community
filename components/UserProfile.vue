@@ -1,10 +1,14 @@
 <template>
-  <v-form v-model="valid">
+  <v-form>
     <v-card>
       <v-card-text>
         <v-row class="flex-column justify-center align-center mb-4">
           <v-avatar size="96" class="mr-4">
-            <img :src="`data:image/png;base64,${avatar}`" alt="Avatar" />
+            <img
+              v-if="isLoading"
+              :src="`data:image/png;base64,${avatar}`"
+              alt="Avatar"
+            />
             <v-avatar v-if="!isLoading" size="96" color="grey darken-2">
               <v-skeleton-loader
                 class="mx-auto"
@@ -30,16 +34,6 @@
               @change="currentFile"
             ></v-file-input>
           </client-only>
-          <v-btn
-            :loading="loading3"
-            :disabled="!valid"
-            color="blue-grey"
-            class="ma-2 white--text"
-            @click="upLoadAvatar"
-          >
-            點擊確認上傳此大頭貼
-            <v-icon right dark> mdi-cloud-upload </v-icon>
-          </v-btn>
           <v-progress-linear
             v-model="progress"
             color="grey lighten-3"
@@ -48,22 +42,30 @@
           >
             <strong>{{ progress }} %</strong>
           </v-progress-linear>
+          <v-btn
+            :loading="loading3"
+            :disabled="valid"
+            color="blue-grey"
+            class="ma-2 white--text"
+            @click="upLoadAvatar"
+          >
+            點擊確認上傳此大頭貼
+            <v-icon right dark> mdi-cloud-upload </v-icon>
+          </v-btn>
         </v-row>
 
         <v-text-field
-          v-model="username"
+          v-model.trim="username"
           name="username"
           label="username"
           :rules="usernameRules"
           counter="25"
-          :counter-value="
-            (v) => (typeof v === 'string' ? v.trim().split(' ')[0].length : 0)
-          "
+          :counter-value="(v) => (typeof v === 'string' ? v.trim().length : 0)"
           required
           autocomplete="username"
         ></v-text-field>
         <v-text-field
-          v-model="email"
+          v-model.trim="email"
           name="email"
           label="email"
           :rules="emailRules"
@@ -74,7 +76,7 @@
         <v-btn
           class="mb-4"
           color="primary"
-          :disabled="!valid"
+          :disabled="valid"
           @click="updateUserInfo"
         >
           儲存
@@ -106,14 +108,8 @@ export default {
       ],
       usernameRules: [
         (v) => !!v || 'username必填',
-        (v) =>
-          typeof v === 'string'
-            ? v.trim().split(' ')[0].length >= 5
-            : false || '最少5個字',
-        (v) =>
-          typeof v === 'string'
-            ? v.trim().split(' ')[0].length <= 25
-            : false || '最多25個字',
+        (v) => (v && v.length >= 5) || '至少5個字',
+        (v) => (v && v.length <= 25) || '最多25個字',
       ],
       avatarRules: [(v) => !v || v.size < 2000000 || '大頭貼必須小於 2 MB!'],
     }
@@ -168,15 +164,21 @@ export default {
 
   methods: {
     currentFile(file) {
+      console.log(this.$refs.image)
       this.file = file
       this.progress = 0
-      if (file) {
+      if (file && file.size > 0) {
+        this.valid = false
+        console.log(this.valid)
         this.fileErrorMes = null
         const type = file.type.split('/')[1]
         if (type !== 'png' && type !== 'jpeg') {
+          console.log('檔案格式不支援')
           this.fileErrorMes = '檔案格式不支援'
         }
-      } else {
+      } else if (!file) {
+        console.log('沒有檔案')
+        this.valid = true
         this.fileErrorMes = '沒有檔案'
       }
     },

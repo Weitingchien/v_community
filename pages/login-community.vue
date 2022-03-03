@@ -1,5 +1,7 @@
 <template>
-  <LoginForm />
+  <div class="loginform">
+    <LoginForm />
+  </div>
 </template>
 
 <style></style>

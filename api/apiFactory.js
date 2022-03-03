@@ -23,4 +23,10 @@ export default (axios) => ({
   getAvatar(data) {
     return axios.post('/api/getavatar', data)
   },
+  postArticles(data) {
+    return axios.post('/api/postarticles', data)
+  },
+  getArticles() {
+    return axios.get('/api/getarticles')
+  },
 })

@@ -5,6 +5,8 @@ const update = require('../model/update')
 const uploadAvatar = require('../model/uploadavatar')
 const getAvatar = require('../model/getavatar')
 const getUserProfileContent = require('../model/getuserprofilecontent')
+const postArticles = require('../model/postarticles')
+const articles = require('../model/articles')
 
 class Normal {
   toLogin(req, res, next) {
@@ -78,6 +80,34 @@ class Normal {
       })
       .catch((err) => {
         res.status(500).json({ message: err.errorMessage })
+      })
+  }
+
+  toPostArticles(req, res, next) {
+    const { id, content, title, topic, issue } = req.body
+    const userArticles = {
+      id,
+      content,
+      title,
+      topic,
+      issue,
+    }
+    postArticles(userArticles)
+      .then((result) => {
+        res.status(200).send({ result })
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err })
+      })
+  }
+
+  getArticles(req, res, next) {
+    articles()
+      .then((result) => {
+        res.status(200).send({ result })
+      })
+      .catch((err) => {
+        res.status(500).send({ message: err })
       })
   }
 }

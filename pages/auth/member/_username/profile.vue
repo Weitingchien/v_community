@@ -1,13 +1,12 @@
-vue
 <template>
-  <div>
-    <AdminPage />
+  <div class="profile">
+    <UserProfile />
   </div>
 </template>
 
 <script>
 export default {
-  middleware: ['isadmin'],
+  middleware: ['isauth', 'isthatyou'],
 }
 </script>
 

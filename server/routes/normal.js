@@ -28,5 +28,7 @@ router.post(
   normalInstance.uploadImage
 )
 router.post('/getavatar', auth.verify, normalInstance.getImage)
+router.post('/postarticles', auth.verify, normalInstance.toPostArticles)
+router.get('/getarticles', normalInstance.getArticles)
 
 module.exports = router

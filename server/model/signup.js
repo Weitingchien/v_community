@@ -1,7 +1,7 @@
 const query = require('../config/db')
 
 const signUp = (memberData) => {
-  console.log()
+  console.log(memberData)
   const data = {}
   return new Promise((resolve, reject) => {
     query(

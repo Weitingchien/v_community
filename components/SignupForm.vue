@@ -3,26 +3,24 @@
     <AlertError v-if="errMessage.length" :err="errMessage" />
     <v-form ref="form" v-model="valid">
       <v-text-field
-        v-model="signUpData.username"
+        v-model.trim="signUpData.username"
         name="username"
         label="username"
         :rules="usernameRules"
         counter="25"
-        :counter-value="
-          (v) => (typeof v === 'string' ? v.trim().split(' ')[0].length : 0)
-        "
+        :counter-value="(v) => (typeof v === 'string' ? v.trim().length : 0)"
         required
         autocomplete="username"
       ></v-text-field>
       <v-text-field
-        v-model="signUpData.email"
+        v-model.trim="signUpData.email"
         name="email"
         label="email"
         :rules="emailRules"
         required
       ></v-text-field>
       <v-text-field
-        v-model="signUpData.password"
+        v-model.trim="signUpData.password"
         :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
         :type="show1 ? 'text' : 'password'"
         label="password"
@@ -33,7 +31,7 @@
         @click:append="show1 = !show1"
       ></v-text-field>
       <v-text-field
-        v-model="confirmPassword"
+        v-model.trim="confirmPassword"
         label="confirmPassword"
         :rules="confirmPasswordRules"
         required
@@ -59,14 +57,9 @@ export default {
       errMessage: '',
       usernameRules: [
         (v) => !!v || 'username必填',
-        (v) =>
-          typeof v === 'string'
-            ? v.trim().split(' ')[0].length >= 5
-            : false || '最少5個字',
-        (v) =>
-          typeof v === 'string'
-            ? v.trim().split(' ')[0].length <= 25
-            : false || '最多25個字',
+        (v) => (v && v.length >= 5) || '至少5個字',
+        (v) => (v && v.length <= 25) || '最多25個字',
+        (v) => !/^\s+|\s+$/.test(v) || '開頭與結尾不能有空格',
       ],
       emailRules: [
         (v) => !!v || 'email必填',

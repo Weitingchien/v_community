@@ -14,7 +14,7 @@
             text
             block
             :to="{
-              path: `/auth/member/${getUserInfo.username}`,
+              path: `/auth/member/${getUserInfo.username}/profile`,
             }"
             >個人資料
           </v-btn>
@@ -53,7 +53,10 @@
                     {{ getUserInfo.email }}
                   </p>
                   <v-divider class="my-3"></v-divider>
-                  <v-btn depressed rounded text> 發表文章 </v-btn>
+                  <v-btn
+depressed rounded text :to="{
+              path: `/auth/member/${getUserInfo.username}/textarea`,
+            }"> 發表文章 </v-btn>
                   <v-divider class="my-3"></v-divider>
                   <v-btn depressed rounded text> 個人文章記錄 </v-btn>
                 </div>
@@ -78,7 +81,7 @@
         <v-list-item
           v-if="isAuthenticated === true"
           :to="{
-            path: `/auth/member/${getUserInfo.username}`,
+            path: `/auth/member/${getUserInfo.username}/profile`,
           }"
         >
           <v-list-item-content>
@@ -166,6 +169,7 @@ export default {
   mounted() {
     if (this.$store.getters.isAuthenticated) {
       this.avatar = this.getAvatar
+      this.$store.dispatch('handAvatarLoading', true)
     }
   },
 
